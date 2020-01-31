@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: `${__dirname}/public/js`,
     filename: "app.js",
-    publicPath: 'http://localhost:9999/'
+    publicPath: 'http://localhost:9999/js/'
   },
   resolve: {
     extensions: ['.json', '.jsx', '.js'],
