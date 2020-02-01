@@ -27,9 +27,12 @@ class ServiceController {
         this.gameController = new GameController(this.userController);
       });
       socket.on(EVENT.GET_ROOM_USERS, () => {
-        socket.broadcast.emit(EVENT.GET_ROOM_USERS, this.userController.getUserList());
+        console.log('get room users');
+        this.socketIO.emit(EVENT.GET_ROOM_USERS, this.userController.getUserList());
+        // socket.broadcast.emit(EVENT.GET_ROOM_USERS, this.userController.getUserList());
       });
       socket.on(EVENT.SET_JOBS_MEMBER, (data) => {
+        console.log('set job member:', data);
         this.gameController.setJobMember(data);
         socket.broadcast.emit(EVENT.GET_JOBS_MEMBER, this.gameController.jobMember);
       })

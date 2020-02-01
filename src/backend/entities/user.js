@@ -15,6 +15,18 @@ class User {
     this.isHost = false;
   }
 
+  getUser = () => {
+    const info = {
+      name: this.name,
+      isAlive: this.isAlive,
+      isSendData: this.isSendData,
+      job: this.job,
+      isHost: this.isHost,
+    };
+
+    this.socket.emit(EVENT.GET_USER, info);
+  }
+
   setJob = (jobNumber) => {
     this.job = JOB_ARRAY[jobNumber];
     console.log(this.name, this.job);
