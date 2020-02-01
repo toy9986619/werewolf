@@ -8,6 +8,7 @@ class ServiceController {
     /** @type {SocketIO.Server} */
     this.socketIO = socketIO;
     this.userController = new UserController();
+    this.gameController = null;
   }
 
   init = () => {
@@ -22,12 +23,24 @@ class ServiceController {
         user.name = name;
         this.userController.addUser(user);
       });
+      socket.on(EVENT.CREATE_ROOM, () => {
+        this.gameController = new GameController(this.userController);
+      });
+      socket.on(EVENT.GET_ROOM_USERS, () => {
+        socket.broadcast.emit(EVENT.GET_ROOM_USERS, this.userController.getUserList());
+      });
+      socket.on(EVENT.SET_JOBS_MEMBER, (data) => {
+        this.gameController.setJobMember(data);
+        socket.broadcast.emit(EVENT.GET_JOBS_MEMBER, this.gameController.jobMember);
+      })
+
       socket.on(EVENT.GAME_INIT, () => {
         console.log('game init!');
-        const gameController = new GameController(this.userController);
+        // const gameController = new GameController(this.userController);
         // gameController.init();
-        gameController.start();
+        this.gameController.start();
       })
+
       socket.on(EVENT.DISCONNECT, ()=> {
         const id = socket.id;
         this.userController.removeUser(id);

@@ -12,7 +12,7 @@ class User {
     this.isAlive = true;
     this.isSendData = false;
     this.job = null;
-    console.log('id', socket.id);
+    this.isHost = false;
   }
 
   setJob = (jobNumber) => {
