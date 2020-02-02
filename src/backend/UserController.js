@@ -8,7 +8,7 @@ class UserController {
       user.isHost = true;
     }
     const targetIndex = this.users.findIndex((data) => data.id === user.id);
-    if(targetIndex === -1) {
+    if (targetIndex === -1) {
       this.users.push(user);
     }
     user.getUser();
@@ -19,8 +19,10 @@ class UserController {
     this.users.splice(targetIndex, 1);
     console.log('remove user:', targetIndex);
 
-    this.users[0].isHost = true;
-    this.users[0].getUser();
+    if (this.users[0]) {
+      this.users[0].isHost = true;
+      this.users[0].getUser();
+    }
   }
 
   getUserList = () => {
