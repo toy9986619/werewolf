@@ -49,6 +49,7 @@ class ServiceController {
       socket.on(EVENT.DISCONNECT, ()=> {
         const id = socket.id;
         this.userController.removeUser(id);
+        this.socketIO.emit(EVENT.GET_ROOM_USERS, this.userController.getUserList());
       })
     });
   }
